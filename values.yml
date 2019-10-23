@@ -1,0 +1,37 @@
+boomi:
+  username:     @@REPLACEME_ATOMSPHERE_USER@@
+  password:     @@REPLACEME_ATOMSPHERE_PASSWORD@@
+  account:      @@REPLACEME_ATOMSPHERE_MAIN_ACCOUNT@@
+  subaccounts:  @@REPLACEME_ATOMSPHERE_SUB_ACCOUNT@@
+  pollInterval: 10
+  environment:  PKS_Live
+  cloud:        PKS_Atom_Cloud
+  debug:        no
+  trace:        no
+  
+  #how long k8s will wait for the node to shut down gracefully before it kills it
+  terminationWaitSeconds: 7200
+
+  # scale up to increase the number of nodes
+  # (pods) in the Molecule Cloud.
+  nodes:  1
+
+cf:
+  api:               https://api.pks.pcfgcp.yourdomain.com:8443
+  domain:            pks.pcfgcp.yourdomain.com
+  routeClient:       admin
+  routeClientSecret: "@@REPLACEME get if from uaac contexts@@"
+  username:          @@REPLACEME_PIVOTAL_USER@@
+  password:          @@REPLACEME_PIVOTAL_PASSWORD@@
+
+image:
+  registry: harbor.pcfgcp.yourdomain.com/library
+  
+storage:
+  mode:   external
+  server: 10.0.0.26
+  path:   /nfs/boomi
+  size:   2Gi
+
+  autofs: |
+    /export/shared -fstype-nfs 10.0.0.26:/nfs/shared
